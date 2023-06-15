@@ -41,6 +41,7 @@ $(OBJECT_PATH)/%.o:	%.c $(HEADER_FILES) Makefile | $(OBJECT_PATH)
 
 $(OBJECT_PATH):
 					mkdir -p $@
+
 $(LIBFT):
 					$(MAKE) -C $(LIBFT_PATH)
 
@@ -52,4 +53,12 @@ fclean:				clean
 
 re:					fclean all
 
-.PHONY:				all clean fclean re
+test:				m
+
+m:					mandatory
+
+mandatory:			all
+					sh ./tests/ft_printf_tester/test m
+					make -C tests/printfTester m
+
+.PHONY:				all clean fclean re test m mandatory

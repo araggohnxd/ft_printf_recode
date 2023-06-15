@@ -1,6 +1,6 @@
 [submodule "tests/printfTester"]
 	path = tests/printfTester
-	url = git@github.com:Tripouille/printfTester.git
+	url = git@github.com:araggohnxd/printfTester.git
 [submodule "tests/ft_printf_tester"]
 	path = tests/ft_printf_tester
-	url = git@github.com:paulo-santana/ft_printf_tester.git
+	url = git@github.com:araggohnxd/ft_printf_tester.git
