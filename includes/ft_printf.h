@@ -6,14 +6,16 @@
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 20:09:44 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/15 17:17:00 by maolivei         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:51:13 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 #define FT_PRINTF_H
 
-#define MAXBUF sizeof(long) * 8
+#define NUMBER_BUFFER_SIZE  sizeof(long) * 8
+#define MINIMUM_BUFFER_SIZE 16
+
 #define DIGITS "0123456789abcdef0123456789ABCDEF"
 
 #include "libft.h"
@@ -52,6 +54,7 @@ int handler_pointer(t_buffer *, va_list, char);
 int handler_string(t_buffer *, va_list, char);
 int handler_unsigned(t_buffer *, va_list, char);
 
+int buffer_create(t_buffer *ctx, size_t capacity);
 int buffer_mutate(t_buffer *, char const *, size_t);
 int buffer_append(t_buffer *, char const *, size_t);
 int number_to_buffer(t_buffer *, unsigned long);
