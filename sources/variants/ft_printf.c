@@ -6,7 +6,7 @@
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 20:08:52 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/15 18:51:41 by maolivei         ###   ########.fr       */
+/*   Updated: 2023/06/15 20:19:24 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ static int ft_vprintf(char const *format, va_list ap)
     if (buffer_create(&ctx, MINIMUM_BUFFER_SIZE) != 0)
         return (-1);
     if (process_format_string(&ctx, format, ap) != 0)
-        return (-1);
-    write(STDOUT_FILENO, ctx.buffer, ctx.size);
+        return (error(&ctx));
+    if (buffer_flush(&ctx) != 0)
+        return (error(&ctx));
     free(ctx.buffer);
-    return (ctx.size);
+    return (ctx.bytes_written);
 }
 
 int ft_printf(char const *format, ...)

@@ -12,7 +12,8 @@ SOURCE_FILES		:= ft_printf.c
 SOURCE_FILES		+= handler_hex.c handler_percent.c handler_unsigned.c
 SOURCE_FILES		+= handler_pointer.c handler_character.c handler_string.c
 SOURCE_FILES		+= handler_decimal.c buffer_mutate.c buffer_append.c
-SOURCE_FILES		+= buffer_create.c core.c number_to_buffer.c error.c
+SOURCE_FILES		+= buffer_create.c buffer_flush.c core.c number_to_buffer.c
+SOURCE_FILES		+= error.c
 
 OBJECT_PATH			:= ./objects
 OBJECT_FILES		:= $(SOURCE_FILES:%.c=$(OBJECT_PATH)/%.o)

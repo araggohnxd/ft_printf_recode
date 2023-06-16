@@ -6,17 +6,19 @@
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 20:09:44 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/15 18:51:13 by maolivei         ###   ########.fr       */
+/*   Updated: 2023/06/15 21:03:13 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 #define FT_PRINTF_H
 
-#define NUMBER_BUFFER_SIZE  sizeof(long) * 8
 #define MINIMUM_BUFFER_SIZE 16
 
-#define DIGITS "0123456789abcdef0123456789ABCDEF"
+#define MAXBUF    sizeof(long) * 8
+#define DIGITS    "0123456789abcdef0123456789ABCDEF"
+#define UPPERCASE 16
+#define LOWERCASE 0
 
 #include "libft.h"
 #include <stdarg.h>
@@ -25,7 +27,7 @@
 
 struct s_meta
 {
-    int   uppercase;
+    int   capital;
     int   base;
     char *prefix;
 };
@@ -36,6 +38,7 @@ struct s_buffer
     char  *buffer;
     size_t size;
     size_t capacity;
+    size_t bytes_written;
     t_meta meta;
 };
 typedef struct s_buffer t_buffer;
@@ -57,6 +60,7 @@ int handler_unsigned(t_buffer *, va_list, char);
 int buffer_create(t_buffer *ctx, size_t capacity);
 int buffer_mutate(t_buffer *, char const *, size_t);
 int buffer_append(t_buffer *, char const *, size_t);
+int buffer_flush(t_buffer *ctx);
 int number_to_buffer(t_buffer *, unsigned long);
 int error(t_buffer *);
 

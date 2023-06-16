@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handler_decimal.c                                  :+:      :+:    :+:   */
+/*   buffer_flush.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 20:08:52 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/15 21:08:22 by maolivei         ###   ########.fr       */
+/*   Created: 2023/06/15 19:48:56 by maolivei          #+#    #+#             */
+/*   Updated: 2023/06/15 19:53:25 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int handler_decimal(t_buffer *ctx, va_list ap, char specifier)
+int buffer_flush(t_buffer *ctx)
 {
-    long const    arg = va_arg(ap, int);
-    unsigned long num;
+    int bytes;
 
-    ctx->meta.base    = 10;
-    ctx->meta.capital = LOWERCASE;
-    if (arg >= 0)
-    {
-        ctx->meta.prefix = NULL;
-        num              = arg;
-    }
-    else
-    {
-        ctx->meta.prefix = "-";
-        num              = -arg;
-    }
-    return (number_to_buffer(ctx, num));
-    (void)specifier;
+    bytes = write(STDOUT_FILENO, ctx->buffer, ctx->size);
+    if (bytes < 0 || bytes != (int)ctx->size)
+        return (-1);
+    ctx->size = 0;
+    ctx->bytes_written += bytes;
+    return (0);
 }
