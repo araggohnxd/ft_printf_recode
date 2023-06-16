@@ -54,7 +54,7 @@ dkms.conf
 # Custom files
 printf_recode
 .normignore
-./main.c
+main.c
 
 # Custom directories
 .vscode/
