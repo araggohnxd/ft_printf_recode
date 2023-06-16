@@ -6,7 +6,7 @@
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 20:09:44 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/15 21:03:13 by maolivei         ###   ########.fr       */
+/*   Updated: 2023/06/15 21:16:35 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@
 
 struct s_meta
 {
-    int   capital;
-    int   base;
-    char *prefix;
+    int         capital;
+    int         base;
+    char const *prefix;
 };
 typedef struct s_meta t_meta;
 

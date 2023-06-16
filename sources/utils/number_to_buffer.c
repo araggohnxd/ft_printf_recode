@@ -6,7 +6,7 @@
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 20:08:52 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/15 21:02:04 by maolivei         ###   ########.fr       */
+/*   Updated: 2023/06/15 21:17:17 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 int number_to_buffer(t_buffer *ctx, unsigned long num)
 {
-    char  buffer[MAXBUF];
-    char *current;
-    char *prefix;
+    char        buffer[MAXBUF];
+    char       *current;
+    char const *prefix = ctx->meta.prefix;
 
-    prefix  = ctx->meta.prefix;
     current = &buffer[MAXBUF - 1];
     while (TRUE)
     {
