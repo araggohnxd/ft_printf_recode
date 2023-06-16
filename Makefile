@@ -9,9 +9,10 @@ LIBFT				:= $(LIBFT_PATH)/libft.a
 SOURCE_DIRS			:= buffer/ handlers/ utils/ variants/
 SOURCE_PATH			:= ./sources $(addprefix ./sources/, $(SOURCE_DIRS))
 SOURCE_FILES		:= ft_printf.c
-SOURCE_FILES		+= handler_hex.c handler_percent.c handler_unsigned.c
-SOURCE_FILES		+= handler_pointer.c handler_character.c handler_string.c
-SOURCE_FILES		+= handler_decimal.c buffer_mutate.c buffer_append.c
+SOURCE_FILES		+= handler_specifier_percent.c handler_specifier_string.c
+SOURCE_FILES		+= handler_specifier_pointer.c handler_specifier_unsigned.c
+SOURCE_FILES		+= handler_specifier_decimal.c handler_specifier_character.c
+SOURCE_FILES		+= handler_specifier_hex.c buffer_mutate.c buffer_append.c
 SOURCE_FILES		+= buffer_create.c buffer_flush.c core.c number_to_buffer.c
 SOURCE_FILES		+= error.c
 

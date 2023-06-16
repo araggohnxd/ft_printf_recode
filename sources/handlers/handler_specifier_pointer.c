@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handler_unsigned.c                                 :+:      :+:    :+:   */
+/*   handler_pointer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 20:08:52 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/15 21:08:22 by maolivei         ###   ########.fr       */
+/*   Updated: 2023/06/16 15:07:21 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int handler_unsigned(t_buffer *ctx, va_list ap, char specifier)
+int handler_specifier_pointer(t_buffer *ctx, va_list ap, char specifier)
 {
-    unsigned long const arg = va_arg(ap, unsigned int);
+    unsigned long const arg = va_arg(ap, unsigned long);
 
-    ctx->meta.base    = 10;
+    if (!arg)
+        return (buffer_append(ctx, "(nil)", 5));
+    ctx->meta.base    = 16;
     ctx->meta.capital = LOWERCASE;
-    ctx->meta.prefix  = NULL;
+    ctx->meta.prefix  = "0x";
     return (number_to_buffer(ctx, arg));
     (void)specifier;
 }

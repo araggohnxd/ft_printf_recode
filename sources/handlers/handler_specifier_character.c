@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handler_string.c                                   :+:      :+:    :+:   */
+/*   handler_character.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 20:08:52 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/15 04:03:18 by maolivei         ###   ########.fr       */
+/*   Updated: 2023/06/16 15:07:21 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int handler_string(t_buffer *ctx, va_list ap, char specifier)
+int handler_specifier_character(t_buffer *ctx, va_list ap, char specifier)
 {
-    char const *arg = va_arg(ap, char *);
+    char arg;
+    char tmp[2];
 
-    if (!arg)
-        arg = "(null)";
-    return (buffer_append(ctx, arg, ft_strlen(arg)));
+    arg    = va_arg(ap, int);
+    tmp[0] = arg;
+    tmp[1] = '\0';
+    return (buffer_append(ctx, tmp, 1));
     (void)specifier;
 }

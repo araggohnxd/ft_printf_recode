@@ -6,7 +6,7 @@
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 20:09:44 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/15 21:16:35 by maolivei         ###   ########.fr       */
+/*   Updated: 2023/06/16 15:27:57 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ int ft_printf(char const *format, ...);
 
 int process_format_string(t_buffer *ctx, char const *format, va_list ap);
 
-int handler_character(t_buffer *, va_list, char);
-int handler_decimal(t_buffer *, va_list, char);
-int handler_hex(t_buffer *, va_list, char);
-int handler_percent(t_buffer *, va_list, char);
-int handler_pointer(t_buffer *, va_list, char);
-int handler_string(t_buffer *, va_list, char);
-int handler_unsigned(t_buffer *, va_list, char);
+int handler_specifier_character(t_buffer *, va_list, char);
+int handler_specifier_decimal(t_buffer *, va_list, char);
+int handler_specifier_hex(t_buffer *, va_list, char);
+int handler_specifier_percent(t_buffer *, va_list, char);
+int handler_specifier_pointer(t_buffer *, va_list, char);
+int handler_specifier_string(t_buffer *, va_list, char);
+int handler_specifier_unsigned(t_buffer *, va_list, char);
 
 int buffer_create(t_buffer *ctx, size_t capacity);
 int buffer_mutate(t_buffer *, char const *, size_t);

@@ -6,7 +6,7 @@
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:54:30 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/15 20:25:11 by maolivei         ###   ########.fr       */
+/*   Updated: 2023/06/16 15:27:45 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 static t_handler_specifier get_specifier_handler(int type)
 {
     static const t_handler_specifier handlers[__SCHAR_MAX__] = {
-        ['%'] = handler_percent,
-        ['X'] = handler_hex,
-        ['c'] = handler_character,
-        ['s'] = handler_string,
-        ['p'] = handler_pointer,
-        ['i'] = handler_decimal,
-        ['d'] = handler_decimal,
-        ['u'] = handler_unsigned,
-        ['x'] = handler_hex,
+        ['%'] = handler_specifier_percent,
+        ['X'] = handler_specifier_hex,
+        ['c'] = handler_specifier_character,
+        ['s'] = handler_specifier_string,
+        ['p'] = handler_specifier_pointer,
+        ['i'] = handler_specifier_decimal,
+        ['d'] = handler_specifier_decimal,
+        ['u'] = handler_specifier_unsigned,
+        ['x'] = handler_specifier_hex,
     };
 
     return (handlers[type]);
@@ -40,9 +40,7 @@ static int handle_format_specifier(t_buffer *ctx, va_list ap, char const *conv)
     handler_specifier = get_specifier_handler(specifier);
     if (!handler_specifier)
         return (buffer_append(ctx, conv, 2));
-    if ((*handler_specifier)(ctx, ap, specifier) != 0)
-        return (-1);
-    return (0);
+    return (*handler_specifier)(ctx, ap, specifier);
 }
 
 int process_format_string(t_buffer *ctx, char const *format, va_list ap)
