@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buffer_create.c                                    :+:      :+:    :+:   */
+/*   ft_memrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/15 18:45:58 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/16 21:37:19 by maolivei         ###   ########.fr       */
+/*   Created: 2023/06/16 19:02:18 by maolivei          #+#    #+#             */
+/*   Updated: 2023/06/16 19:03:00 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int buffer_create(t_buffer *ctx, char const *format, size_t capacity)
+void	*ft_memrchr(void const *s, int c, size_t n)
 {
-    ctx->buffer = malloc(capacity * sizeof(*ctx->buffer));
-    if (!ctx->buffer)
-        return (-1);
-    ctx->capacity      = capacity;
-    ctx->size          = 0;
-    ctx->bytes_written = 0;
-    ctx->offset        = 0;
-    ctx->format        = format;
-    return (0);
+	unsigned char const	*us = (unsigned char *)s;
+	unsigned char const	uc = (unsigned char)c;
+
+	while (n--)
+		if (*(us + n) == uc)
+			return ((void *)(us + n));
+	return (NULL);
 }

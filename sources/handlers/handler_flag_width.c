@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buffer_create.c                                    :+:      :+:    :+:   */
+/*   handler_flag_width.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/15 18:45:58 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/16 21:37:19 by maolivei         ###   ########.fr       */
+/*   Created: 2023/06/16 15:35:23 by maolivei          #+#    #+#             */
+/*   Updated: 2023/06/16 18:14:57 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int buffer_create(t_buffer *ctx, char const *format, size_t capacity)
+int handler_flag_width(t_buffer *ctx, va_list ap)
 {
-    ctx->buffer = malloc(capacity * sizeof(*ctx->buffer));
-    if (!ctx->buffer)
+    int width;
+
+    width = 0;
+    while (ctx->format[ctx->offset] && ft_isdigit(ctx->format[ctx->offset]))
+        width = (width * 10) + (ctx->format[ctx->offset++] - '0');
+    if (width < 0)
         return (-1);
-    ctx->capacity      = capacity;
-    ctx->size          = 0;
-    ctx->bytes_written = 0;
-    ctx->offset        = 0;
-    ctx->format        = format;
-    return (0);
+    ctx->flags.width = width;
+    --ctx->offset;
+    return (handle_specifier_or_flag(ctx, ap));
 }

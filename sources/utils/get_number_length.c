@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buffer_create.c                                    :+:      :+:    :+:   */
+/*   get_number_length.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/15 18:45:58 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/16 21:37:19 by maolivei         ###   ########.fr       */
+/*   Created: 2023/06/16 22:20:19 by maolivei          #+#    #+#             */
+/*   Updated: 2023/06/16 22:20:24 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int buffer_create(t_buffer *ctx, char const *format, size_t capacity)
+size_t get_number_length(long num, int base)
 {
-    ctx->buffer = malloc(capacity * sizeof(*ctx->buffer));
-    if (!ctx->buffer)
-        return (-1);
-    ctx->capacity      = capacity;
-    ctx->size          = 0;
-    ctx->bytes_written = 0;
-    ctx->offset        = 0;
-    ctx->format        = format;
-    return (0);
+    size_t length;
+
+    if (num == 0)
+        return (1);
+    length = 0;
+    if (num < 0)
+    {
+        ++length;
+        num = -num;
+    }
+    while (num != 0)
+    {
+        ++length;
+        num /= base;
+    }
+    return (length);
 }

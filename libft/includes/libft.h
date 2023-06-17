@@ -6,7 +6,7 @@
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 14:43:19 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/15 03:24:10 by maolivei         ###   ########.fr       */
+/*   Updated: 2023/06/16 19:04:20 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,18 @@ void		*ft_memccpy(void *dest, const void *src, int c, size_t n);
 * the character c does not occur in the given memory area.
 */
 void		*ft_memchr(const void *s, int c, size_t n);
+
+/**
+* @brief Scans the last n bytes of the memory area
+* pointed to by s for the last instance of c
+* (both interpreted as unsigned char).
+* @param s Memory area to scan.
+* @param c Character to scan for.
+* @param n Number of bytes to scan.
+* @return A pointer to the matching byte, or NULL if
+* the character c does not occur in the given memory area.
+*/
+void		*ft_memrchr(void const *s, int c, size_t n);
 
 /**
 * @brief Compare at most n bytes of two memory areas

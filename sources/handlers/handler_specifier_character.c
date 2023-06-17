@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handler_character.c                                :+:      :+:    :+:   */
+/*   handler_specifier_character.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 20:08:52 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/16 15:07:21 by maolivei         ###   ########.fr       */
+/*   Updated: 2023/06/16 23:51:33 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int handler_specifier_character(t_buffer *ctx, va_list ap, char specifier)
+static int handle_flags(t_buffer *ctx, size_t length)
 {
-    char arg;
-    char tmp[2];
+    if (ctx->flags.width)
+        if (fill_width(ctx, length) != 0)
+            return (-1);
+    return (0);
+}
 
-    arg    = va_arg(ap, int);
-    tmp[0] = arg;
-    tmp[1] = '\0';
-    return (buffer_append(ctx, tmp, 1));
-    (void)specifier;
+int handler_specifier_character(t_buffer *ctx, va_list ap)
+{
+    char const arg = va_arg(ap, int);
+
+    if (handle_flags(ctx, 1) != 0)
+        return (-1);
+    ++ctx->offset;
+    return (buffer_append(ctx, &arg, 1));
 }
