@@ -15,6 +15,7 @@ SOURCE_FILES		+= handler_specifier_decimal.c handler_specifier_character.c
 SOURCE_FILES		+= handler_specifier_hex.c
 SOURCE_FILES		+= handler_flag_width.c handler_flag_precision.c
 SOURCE_FILES		+= handler_flag_minus.c handler_flag_zero.c
+SOURCE_FILES		+= handler_flag_hash.c
 SOURCE_FILES		+= buffer_mutate.c buffer_append.c buffer_create.c
 SOURCE_FILES		+= buffer_append_one.c buffer_flush.c buffer_reset_flags.c
 SOURCE_FILES		+= buffer_insert_fill.c
