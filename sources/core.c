@@ -6,7 +6,7 @@
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:54:30 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/19 16:50:44 by maolivei         ###   ########.fr       */
+/*   Updated: 2023/06/19 17:28:23 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ int handle_specifier_or_flag(t_buffer *ctx, va_list ap)
     char_to_handle = ctx->format[ctx->offset + 1];
     if (!char_to_handle)
         return (-1);
-    handler = get_handler(char_to_handle);
-    if (handler == handler_flag_space)
+    if (char_to_handle == ' ' || char_to_handle == '+')
         if (has_precision(&ctx->flags) || has_width(&ctx->flags))
             return (skip_format(ctx));
+    handler = get_handler(char_to_handle);
     if (!handler)
         return (skip_format(ctx));
     ++ctx->offset;
