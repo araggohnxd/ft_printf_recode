@@ -16,6 +16,7 @@ SOURCE_FILES		+= handler_specifier_hex.c
 SOURCE_FILES		+= handler_flag_width.c handler_flag_precision.c
 SOURCE_FILES		+= handler_flag_minus.c handler_flag_zero.c
 SOURCE_FILES		+= handler_flag_hash.c handler_flag_space.c
+SOURCE_FILES		+= handler_flag_plus.c
 SOURCE_FILES		+= buffer_mutate.c buffer_append.c buffer_create.c
 SOURCE_FILES		+= buffer_append_one.c buffer_flush.c buffer_reset_flags.c
 SOURCE_FILES		+= buffer_insert_fill.c
@@ -61,17 +62,15 @@ fclean:				clean
 
 re:					fclean all
 
-test:				b
-
 m:					mandatory
 
 mandatory:			all
-					sh ./tests/ft_printf_tester/test m
-					make -C tests/printfTester m
 
 b:					bonus
 
 bonus:				all
+
+test:				all
 					sh ./tests/ft_printf_tester/test b
 					make -C tests/printfTester b
 

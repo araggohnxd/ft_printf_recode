@@ -6,7 +6,7 @@
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 20:08:52 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/19 16:38:41 by maolivei         ###   ########.fr       */
+/*   Updated: 2023/06/19 16:50:29 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static int append_prefix(t_buffer *ctx, t_bool negative, size_t length)
         return (buffer_append_one(ctx, ' '));
     if (negative)
         return (buffer_append_one(ctx, '-'));
+    if (ctx->flags.plus)
+        return (buffer_append_one(ctx, '+'));
     return (0);
 }
 

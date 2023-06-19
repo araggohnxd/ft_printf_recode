@@ -6,7 +6,7 @@
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 20:09:44 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/19 16:02:04 by maolivei         ###   ########.fr       */
+/*   Updated: 2023/06/19 16:42:10 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ struct s_flags
     t_bool zero;
     t_bool hash;
     t_bool space;
+    t_bool plus;
 };
 typedef struct s_flags t_flags;
 
@@ -71,6 +72,7 @@ int handler_flag_minus(t_buffer *, va_list);
 int handler_flag_zero(t_buffer *, va_list);
 int handler_flag_hash(t_buffer *, va_list);
 int handler_flag_space(t_buffer *, va_list);
+int handler_flag_plus(t_buffer *, va_list);
 
 int fill_width(t_buffer *, int, size_t, size_t);
 int get_true_precision(int, int);
