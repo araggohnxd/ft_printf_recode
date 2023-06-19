@@ -6,7 +6,7 @@
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 15:35:23 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/18 15:52:43 by maolivei         ###   ########.fr       */
+/*   Updated: 2023/06/19 15:10:47 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int handler_flag_precision(t_buffer *ctx, va_list ap)
     if (precision < 0)
         return (-1);
     ctx->flags.precision = precision;
+    if (ctx->flags.zero)
+        ctx->flags.zero = FALSE;
     --ctx->offset;
     return (handle_specifier_or_flag(ctx, ap));
 }

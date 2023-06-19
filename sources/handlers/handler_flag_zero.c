@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buffer_reset_flags.c                               :+:      :+:    :+:   */
+/*   handler_flag_zero.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/16 22:10:30 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/19 15:09:18 by maolivei         ###   ########.fr       */
+/*   Created: 2023/06/18 23:18:33 by maolivei          #+#    #+#             */
+/*   Updated: 2023/06/19 15:04:36 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void buffer_reset_flags(t_buffer *ctx)
+int handler_flag_zero(t_buffer *ctx, va_list ap)
 {
-    ctx->flags.width     = -1;
-    ctx->flags.precision = -1;
-    ctx->flags.minus     = FALSE;
-    ctx->flags.zero      = FALSE;
+    ctx->flags.zero = TRUE;
+    return (handle_specifier_or_flag(ctx, ap));
 }

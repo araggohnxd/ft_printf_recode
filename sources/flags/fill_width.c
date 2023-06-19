@@ -6,7 +6,7 @@
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 22:17:31 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/19 15:28:59 by maolivei         ###   ########.fr       */
+/*   Updated: 2023/06/19 15:30:31 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static int get_true_width(int length, int precision, int width, int offset)
 int fill_width(t_buffer *ctx, int precision, size_t len, size_t offset)
 {
     int const width = get_true_width(len, precision, ctx->flags.width, offset);
+    int const fill  = '0' * (ctx->flags.zero) + ' ' * (!ctx->flags.zero);
     size_t    pos;
 
     if (!width)
@@ -33,5 +34,5 @@ int fill_width(t_buffer *ctx, int precision, size_t len, size_t offset)
         pos = ctx->size;
     else
         pos = ctx->size - len - precision - offset;
-    return (buffer_insert_fill(ctx, pos, ' ', width));
+    return (buffer_insert_fill(ctx, pos, fill, width));
 }

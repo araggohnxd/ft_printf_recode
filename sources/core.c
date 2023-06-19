@@ -6,7 +6,7 @@
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:54:30 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/18 23:21:11 by maolivei         ###   ########.fr       */
+/*   Updated: 2023/06/19 15:05:20 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static t_handler get_handler(int char_to_handle)
 {
     static const t_handler handlers[__SCHAR_MAX__] = {
         ['-'] = handler_flag_minus,          ['.'] = handler_flag_precision,
-        ['%'] = handler_specifier_percent,   ['0'] = handler_flag_width,
+        ['%'] = handler_specifier_percent,   ['0'] = handler_flag_zero,
         ['1'] = handler_flag_width,          ['2'] = handler_flag_width,
         ['3'] = handler_flag_width,          ['4'] = handler_flag_width,
         ['5'] = handler_flag_width,          ['6'] = handler_flag_width,

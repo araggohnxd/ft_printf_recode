@@ -6,7 +6,7 @@
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 20:08:52 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/19 15:26:22 by maolivei         ###   ########.fr       */
+/*   Updated: 2023/06/19 15:33:41 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ static int handle_flags(t_buffer *ctx, unsigned long num, t_bool negative)
     int    precision;
 
     length    = get_number_length(num, DEC_BASE);
-    precision = get_true_precision(length, ctx->flags.precision);
+    if (!ctx->flags.zero)
+        precision = get_true_precision(length, ctx->flags.precision);
+    else
+        precision = get_true_precision(length, (ctx->flags.width - negative));
     if (has_precision(&ctx->flags) && ctx->flags.precision == 0 && num == 0)
         length = 0;
     if (negative)
