@@ -6,7 +6,7 @@
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:54:30 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/18 22:19:42 by maolivei         ###   ########.fr       */
+/*   Updated: 2023/06/18 23:21:11 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,17 @@
 static t_handler get_handler(int char_to_handle)
 {
     static const t_handler handlers[__SCHAR_MAX__] = {
-        ['.'] = handler_flag_precision,     ['%'] = handler_specifier_percent,
-        ['0'] = handler_flag_width,         ['1'] = handler_flag_width,
-        ['2'] = handler_flag_width,         ['3'] = handler_flag_width,
-        ['4'] = handler_flag_width,         ['5'] = handler_flag_width,
-        ['6'] = handler_flag_width,         ['7'] = handler_flag_width,
-        ['8'] = handler_flag_width,         ['9'] = handler_flag_width,
-        ['X'] = handler_specifier_hex,      ['c'] = handler_specifier_character,
-        ['s'] = handler_specifier_string,   ['p'] = handler_specifier_pointer,
-        ['i'] = handler_specifier_decimal,  ['d'] = handler_specifier_decimal,
-        ['u'] = handler_specifier_unsigned, ['x'] = handler_specifier_hex,
+        ['-'] = handler_flag_minus,          ['.'] = handler_flag_precision,
+        ['%'] = handler_specifier_percent,   ['0'] = handler_flag_width,
+        ['1'] = handler_flag_width,          ['2'] = handler_flag_width,
+        ['3'] = handler_flag_width,          ['4'] = handler_flag_width,
+        ['5'] = handler_flag_width,          ['6'] = handler_flag_width,
+        ['7'] = handler_flag_width,          ['8'] = handler_flag_width,
+        ['9'] = handler_flag_width,          ['X'] = handler_specifier_hex,
+        ['c'] = handler_specifier_character, ['s'] = handler_specifier_string,
+        ['p'] = handler_specifier_pointer,   ['i'] = handler_specifier_decimal,
+        ['d'] = handler_specifier_decimal,   ['u'] = handler_specifier_unsigned,
+        ['x'] = handler_specifier_hex,
     };
 
     return (handlers[char_to_handle]);

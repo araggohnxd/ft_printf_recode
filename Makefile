@@ -14,10 +14,12 @@ SOURCE_FILES		+= handler_specifier_pointer.c handler_specifier_unsigned.c
 SOURCE_FILES		+= handler_specifier_decimal.c handler_specifier_character.c
 SOURCE_FILES		+= handler_specifier_hex.c
 SOURCE_FILES		+= handler_flag_width.c handler_flag_precision.c
+SOURCE_FILES		+= handler_flag_minus.c
 SOURCE_FILES		+= buffer_mutate.c buffer_append.c buffer_create.c
 SOURCE_FILES		+= buffer_append_one.c buffer_flush.c buffer_reset_flags.c
+SOURCE_FILES		+= buffer_insert_fill.c
 SOURCE_FILES		+= error.c number_to_buffer.c get_number_length.c
-SOURCE_FILES		+= fill_width.c fill_precision.c
+SOURCE_FILES		+= has_flags.c fill_width.c fill_precision.c
 
 OBJECT_PATH			:= ./objects
 OBJECT_FILES		:= $(SOURCE_FILES:%.c=$(OBJECT_PATH)/%.o)

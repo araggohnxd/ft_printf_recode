@@ -6,26 +6,34 @@
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 20:08:52 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/18 22:19:47 by maolivei         ###   ########.fr       */
+/*   Updated: 2023/06/19 13:34:35 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int set_precision(int length, int precision)
+static int handle_flags(t_buffer *ctx, unsigned long arg)
 {
-    if (precision > length)
-        return (precision);
-    return (length);
-}
+    size_t length;
+    size_t precision;
+    int    capital;
 
-static int handle_flags(t_buffer *ctx, size_t length)
-{
-    if (ctx->flags.width > -1)
-        if (fill_width(ctx, set_precision(length, ctx->flags.precision)) != 0)
+    if (ctx->format[ctx->offset - 1] == 'X')
+        capital = HEX_UPPERCASE;
+    else
+        capital = HEX_LOWERCASE;
+    length    = get_number_length(arg, HEX_BASE);
+    precision = get_true_precision(length, ctx->flags.precision);
+    if (has_precision(&ctx->flags) && precision == 0 && arg == 0)
+        length = 0;
+    if (precision)
+        if (buffer_insert_fill(ctx, ctx->size, '0', precision) != 0)
             return (-1);
-    if (ctx->flags.precision > -1)
-        if (fill_precision(ctx, length) != 0)
+    if (length)
+        if (number_to_buffer(ctx, arg, HEX_BASE, capital) != 0)
+            return (-1);
+    if (has_width(&ctx->flags))
+        if (fill_width(ctx, precision, length, 0) != 0)
             return (-1);
     return (0);
 }
@@ -33,17 +41,7 @@ static int handle_flags(t_buffer *ctx, size_t length)
 int handler_specifier_hex(t_buffer *ctx, va_list ap)
 {
     unsigned long const arg = va_arg(ap, unsigned int);
-    t_meta              info;
 
-    info.base = 16;
-    if (ctx->format[ctx->offset] == 'X')
-        info.capital = UPPERCASE;
-    else
-        info.capital = LOWERCASE;
-    if (handle_flags(ctx, get_number_length(arg, info.base)) != 0)
-        return (-1);
     ++ctx->offset;
-    if (arg == 0 && ctx->flags.precision == 0)
-        return (0);
-    return (number_to_buffer(ctx, arg, &info));
+    return (handle_flags(ctx, arg));
 }

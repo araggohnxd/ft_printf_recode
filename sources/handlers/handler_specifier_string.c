@@ -6,7 +6,7 @@
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 20:08:52 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/18 22:19:45 by maolivei         ###   ########.fr       */
+/*   Updated: 2023/06/19 13:31:42 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,31 @@ static int set_precision(int length, int precision)
     return (length);
 }
 
-static int handle_flags(t_buffer *ctx, size_t *length)
+static int handle_flags(t_buffer *ctx, char const *arg, size_t length)
 {
-    if (ctx->flags.precision > -1)
-        *length = set_precision(*length, ctx->flags.precision);
-    if (ctx->flags.width > -1)
-        if (fill_width(ctx, *length) != 0)
+    if (has_precision(&ctx->flags))
+        length = set_precision(length, ctx->flags.precision);
+    if (buffer_append(ctx, arg, length) != 0)
+        return (-1);
+    if (has_width(&ctx->flags))
+        if (fill_width(ctx, 0, length, 0) != 0)
             return (-1);
     return (0);
 }
 
 static int handle_null_string(t_buffer *ctx)
 {
-    if (ctx->flags.precision > -1 && ctx->flags.precision < 6)
-        return (fill_width(ctx, 0));
-    if (ctx->flags.width > -1)
-        if (fill_width(ctx, 6) != 0)
+    char const  *nullstr = "(null)";
+    size_t const length  = 6;
+
+    if (has_precision(&ctx->flags) && ctx->flags.precision < (int)length)
+        return (fill_width(ctx, 0, 0, 0));
+    if (buffer_append(ctx, nullstr, length) != 0)
+        return (-1);
+    if (has_width(&ctx->flags))
+        if (fill_width(ctx, 0, length, 0) != 0)
             return (-1);
-    return (buffer_append(ctx, "(null)", 6));
+    return (0);
 }
 
 int handler_specifier_string(t_buffer *ctx, va_list ap)
@@ -48,7 +55,5 @@ int handler_specifier_string(t_buffer *ctx, va_list ap)
     if (!arg)
         return (handle_null_string(ctx));
     length = ft_strlen(arg);
-    if (handle_flags(ctx, &length) != 0)
-        return (-1);
-    return (buffer_append(ctx, arg, length));
+    return (handle_flags(ctx, arg, length));
 }
