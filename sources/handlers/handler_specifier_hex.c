@@ -6,7 +6,7 @@
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 20:08:52 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/19 13:34:35 by maolivei         ###   ########.fr       */
+/*   Updated: 2023/06/19 15:27:37 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int handle_flags(t_buffer *ctx, unsigned long arg)
         capital = HEX_LOWERCASE;
     length    = get_number_length(arg, HEX_BASE);
     precision = get_true_precision(length, ctx->flags.precision);
-    if (has_precision(&ctx->flags) && precision == 0 && arg == 0)
+    if (has_precision(&ctx->flags) && ctx->flags.precision == 0 && arg == 0)
         length = 0;
     if (precision)
         if (buffer_insert_fill(ctx, ctx->size, '0', precision) != 0)
