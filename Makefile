@@ -8,14 +8,16 @@ LIBFT				:= $(LIBFT_PATH)/libft.a
 
 SOURCE_DIRS			:= buffer/ handlers/ utils/ variants/ flags/
 SOURCE_PATH			:= ./sources $(addprefix ./sources/, $(SOURCE_DIRS))
-SOURCE_FILES		:= ft_printf.c
+SOURCE_FILES		:= core.c ft_printf.c
 SOURCE_FILES		+= handler_specifier_percent.c handler_specifier_string.c
 SOURCE_FILES		+= handler_specifier_pointer.c handler_specifier_unsigned.c
 SOURCE_FILES		+= handler_specifier_decimal.c handler_specifier_character.c
-SOURCE_FILES		+= handler_specifier_hex.c handler_flag_width.c core.c
-SOURCE_FILES		+= error.c buffer_mutate.c buffer_append.c buffer_create.c
+SOURCE_FILES		+= handler_specifier_hex.c
+SOURCE_FILES		+= handler_flag_width.c handler_flag_precision.c
+SOURCE_FILES		+= buffer_mutate.c buffer_append.c buffer_create.c
 SOURCE_FILES		+= buffer_append_one.c buffer_flush.c buffer_reset_flags.c
-SOURCE_FILES		+= number_to_buffer.c fill_width.c get_number_length.c
+SOURCE_FILES		+= error.c number_to_buffer.c get_number_length.c
+SOURCE_FILES		+= fill_width.c fill_precision.c
 
 OBJECT_PATH			:= ./objects
 OBJECT_FILES		:= $(SOURCE_FILES:%.c=$(OBJECT_PATH)/%.o)

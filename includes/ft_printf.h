@@ -6,7 +6,7 @@
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 20:09:44 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/16 22:23:08 by maolivei         ###   ########.fr       */
+/*   Updated: 2023/06/18 22:09:33 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@
 
 struct s_meta
 {
-    int         capital;
-    int         base;
-    char const *prefix;
+    int capital;
+    int base;
 };
 typedef struct s_meta t_meta;
 
 struct s_flags
 {
     int width;
+    int precision;
 };
 typedef struct s_flags t_flags;
 
@@ -66,8 +66,10 @@ int handler_specifier_pointer(t_buffer *, va_list);
 int handler_specifier_string(t_buffer *, va_list);
 int handler_specifier_unsigned(t_buffer *, va_list);
 int handler_flag_width(t_buffer *, va_list);
+int handler_flag_precision(t_buffer *, va_list);
 
 int fill_width(t_buffer *, size_t);
+int fill_precision(t_buffer *, size_t);
 
 int  buffer_create(t_buffer *, char const *, size_t);
 int  buffer_mutate(t_buffer *, char const *, size_t);

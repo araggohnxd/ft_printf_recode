@@ -6,7 +6,7 @@
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 20:08:52 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/16 23:51:33 by maolivei         ###   ########.fr       */
+/*   Updated: 2023/06/18 21:01:08 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int handle_flags(t_buffer *ctx, size_t length)
 {
-    if (ctx->flags.width)
+    if (ctx->flags.width > -1)
         if (fill_width(ctx, length) != 0)
             return (-1);
     return (0);

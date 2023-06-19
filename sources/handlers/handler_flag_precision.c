@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buffer_reset_flags.c                               :+:      :+:    :+:   */
+/*   handler_flag_precision.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/16 22:10:30 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/18 21:48:19 by maolivei         ###   ########.fr       */
+/*   Created: 2023/06/16 15:35:23 by maolivei          #+#    #+#             */
+/*   Updated: 2023/06/18 15:52:43 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void buffer_reset_flags(t_buffer *ctx)
+int handler_flag_precision(t_buffer *ctx, va_list ap)
 {
-    ft_memset(&ctx->flags, -1, sizeof(t_flags));
+    int precision;
+
+    ++ctx->offset;
+    precision = 0;
+    while (ctx->format[ctx->offset] && ft_isdigit(ctx->format[ctx->offset]))
+        precision = (precision * 10) + (ctx->format[ctx->offset++] - '0');
+    if (precision < 0)
+        return (-1);
+    ctx->flags.precision = precision;
+    --ctx->offset;
+    return (handle_specifier_or_flag(ctx, ap));
 }
