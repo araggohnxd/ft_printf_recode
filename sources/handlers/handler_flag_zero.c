@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   handler_flag_zero.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/15 05:04:02 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/15 20:19:52 by maolivei         ###   ########.fr       */
+/*   Created: 2023/06/18 23:18:33 by maolivei          #+#    #+#             */
+/*   Updated: 2023/06/19 17:21:57 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int error(t_buffer *ctx)
+int handler_flag_zero(t_buffer *ctx, va_list ap)
 {
-    free(ctx->buffer);
-    ctx->buffer = NULL;
-    ctx->size   = 0;
-    return (-1);
+    if (!ctx->flags.minus)
+        ctx->flags.zero = TRUE;
+    return (handle_specifier_or_flag(ctx, ap));
 }

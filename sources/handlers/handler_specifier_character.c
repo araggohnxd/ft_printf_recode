@@ -1,39 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   handler_specifier_character.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 20:08:52 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/16 15:48:19 by maolivei         ###   ########.fr       */
+/*   Updated: 2023/06/19 13:13:54 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int ft_vprintf(char const *format, va_list ap)
+static int handle_flags(t_buffer *ctx, char const *arg)
 {
-    t_buffer ctx;
+    size_t const length = 1;
 
-    if (buffer_create(&ctx, format, MINIMUM_BUFFER_SIZE) != 0)
+    if (buffer_append(ctx, arg, length) != 0)
         return (-1);
-    if (process_format_string(&ctx, ap) != 0)
-        return (error(&ctx));
-    if (buffer_flush(&ctx) != 0)
-        return (error(&ctx));
-    free(ctx.buffer);
-    return (ctx.bytes_written);
+    if (has_width(&ctx->flags))
+        if (fill_width(ctx, 0, length, 0) != 0)
+            return (-1);
+    return (0);
 }
 
-int ft_printf(char const *format, ...)
+int handler_specifier_character(t_buffer *ctx, va_list ap)
 {
-    int     bytes;
-    va_list ap;
+    char const arg = va_arg(ap, int);
 
-    bytes = 0;
-    va_start(ap, format);
-    bytes = ft_vprintf(format, ap);
-    va_end(ap);
-    return (bytes);
+    ++ctx->offset;
+    return (handle_flags(ctx, &arg));
 }

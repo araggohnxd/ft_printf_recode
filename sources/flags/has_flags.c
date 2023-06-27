@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handler_hex.c                                      :+:      :+:    :+:   */
+/*   has_flags.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 20:08:52 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/15 04:36:16 by maolivei         ###   ########.fr       */
+/*   Created: 2023/06/19 13:12:54 by maolivei          #+#    #+#             */
+/*   Updated: 2023/06/19 13:13:19 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int handler_hex(t_buffer *ctx, va_list ap, char specifier)
+t_bool has_precision(t_flags *flags)
 {
-    unsigned long const arg = va_arg(ap, unsigned int);
+    return (flags->precision > -1);
+}
 
-    ctx->meta.base = 16;
-    if (specifier == 'X')
-        ctx->meta.uppercase = 16;
-    else
-        ctx->meta.uppercase = 0;
-    ctx->meta.prefix = NULL;
-    return (number_to_buffer(ctx, arg));
+t_bool has_width(t_flags *flags)
+{
+    return (flags->width > -1);
 }

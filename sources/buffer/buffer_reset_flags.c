@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   buffer_reset_flags.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/15 05:04:02 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/15 20:19:52 by maolivei         ###   ########.fr       */
+/*   Created: 2023/06/16 22:10:30 by maolivei          #+#    #+#             */
+/*   Updated: 2023/06/19 16:48:44 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int error(t_buffer *ctx)
+void buffer_reset_flags(t_buffer *ctx)
 {
-    free(ctx->buffer);
-    ctx->buffer = NULL;
-    ctx->size   = 0;
-    return (-1);
+    ctx->flags.width     = -1;
+    ctx->flags.precision = -1;
+    ctx->flags.minus     = FALSE;
+    ctx->flags.zero      = FALSE;
+    ctx->flags.hash      = FALSE;
+    ctx->flags.space     = FALSE;
+    ctx->flags.plus      = FALSE;
 }

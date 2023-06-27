@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   fill_precision.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/15 05:04:02 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/15 20:19:52 by maolivei         ###   ########.fr       */
+/*   Created: 2023/06/18 22:09:07 by maolivei          #+#    #+#             */
+/*   Updated: 2023/06/19 13:30:48 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int error(t_buffer *ctx)
+int get_true_precision(int length, int precision)
 {
-    free(ctx->buffer);
-    ctx->buffer = NULL;
-    ctx->size   = 0;
-    return (-1);
+    int true_precision;
+
+    true_precision = precision - length;
+    if (true_precision < 0)
+        true_precision = 0;
+    return (true_precision);
 }

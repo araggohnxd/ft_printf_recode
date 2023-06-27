@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handler_percent.c                                  :+:      :+:    :+:   */
+/*   ft_memrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 20:08:52 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/15 04:02:40 by maolivei         ###   ########.fr       */
+/*   Created: 2023/06/16 19:02:18 by maolivei          #+#    #+#             */
+/*   Updated: 2023/06/16 19:03:00 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int handler_percent(t_buffer *ctx, va_list ap, char specifier)
+void	*ft_memrchr(void const *s, int c, size_t n)
 {
-    return (buffer_append(ctx, "%", 1));
-    (void)ap;
-    (void)specifier;
+	unsigned char const	*us = (unsigned char *)s;
+	unsigned char const	uc = (unsigned char)c;
+
+	while (n--)
+		if (*(us + n) == uc)
+			return ((void *)(us + n));
+	return (NULL);
 }

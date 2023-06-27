@@ -13,11 +13,11 @@ SOURCE_FILES		:= ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c
 SOURCE_FILES		+= ft_isspace.c ft_isprint.c ft_tolower.c ft_toupper.c
 
 # string
-SOURCE_FILES		+= ft_bzero.c ft_memccpy.c ft_memchr.c ft_memcmp.c
-SOURCE_FILES		+= ft_memmove.c ft_mempcpy.c ft_memset.c ft_strchr.c
+SOURCE_FILES		+= ft_bzero.c ft_memccpy.c ft_memchr.c ft_memrchr.c
+SOURCE_FILES		+= ft_memcmp.c ft_memmove.c ft_mempcpy.c ft_memset.c
 SOURCE_FILES		+= ft_strdup.c ft_strndup.c ft_strlen.c ft_strnlen.c
-SOURCE_FILES		+= ft_strrchr.c ft_strcmp.c ft_strncmp.c ft_strnstr.c
-SOURCE_FILES		+= ft_memcpy.c
+SOURCE_FILES		+= ft_strchr.c ft_strrchr.c ft_strcmp.c ft_strncmp.c
+SOURCE_FILES		+= ft_strnstr.c ft_memcpy.c
 
 # stdio
 SOURCE_FILES		+= ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c

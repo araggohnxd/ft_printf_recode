@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handler_string.c                                   :+:      :+:    :+:   */
+/*   buffer_create.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 20:08:52 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/15 04:03:18 by maolivei         ###   ########.fr       */
+/*   Created: 2023/06/15 18:45:58 by maolivei          #+#    #+#             */
+/*   Updated: 2023/06/16 21:37:19 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int handler_string(t_buffer *ctx, va_list ap, char specifier)
+int buffer_create(t_buffer *ctx, char const *format, size_t capacity)
 {
-    char const *arg = va_arg(ap, char *);
-
-    if (!arg)
-        arg = "(null)";
-    return (buffer_append(ctx, arg, ft_strlen(arg)));
-    (void)specifier;
+    ctx->buffer = malloc(capacity * sizeof(*ctx->buffer));
+    if (!ctx->buffer)
+        return (-1);
+    ctx->capacity      = capacity;
+    ctx->size          = 0;
+    ctx->bytes_written = 0;
+    ctx->offset        = 0;
+    ctx->format        = format;
+    return (0);
 }

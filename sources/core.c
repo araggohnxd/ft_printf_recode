@@ -6,61 +6,80 @@
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:54:30 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/15 17:11:08 by maolivei         ###   ########.fr       */
+/*   Updated: 2023/06/19 17:28:23 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static t_handler_specifier get_specifier_handler(int type)
+static t_handler get_handler(int char_to_handle)
 {
-    static const t_handler_specifier handlers[__SCHAR_MAX__] = {
-        ['%'] = handler_percent,
-        ['X'] = handler_hex,
-        ['c'] = handler_character,
-        ['s'] = handler_string,
-        ['p'] = handler_pointer,
-        ['i'] = handler_decimal,
-        ['d'] = handler_decimal,
-        ['u'] = handler_unsigned,
-        ['x'] = handler_hex,
+    static const t_handler handlers[__SCHAR_MAX__] = {
+        [' '] = handler_flag_space,         ['#'] = handler_flag_hash,
+        ['+'] = handler_flag_plus,          ['-'] = handler_flag_minus,
+        ['.'] = handler_flag_precision,     ['%'] = handler_specifier_percent,
+        ['0'] = handler_flag_zero,          ['1'] = handler_flag_width,
+        ['2'] = handler_flag_width,         ['3'] = handler_flag_width,
+        ['4'] = handler_flag_width,         ['5'] = handler_flag_width,
+        ['6'] = handler_flag_width,         ['7'] = handler_flag_width,
+        ['8'] = handler_flag_width,         ['9'] = handler_flag_width,
+        ['X'] = handler_specifier_hex,      ['c'] = handler_specifier_character,
+        ['s'] = handler_specifier_string,   ['p'] = handler_specifier_pointer,
+        ['i'] = handler_specifier_decimal,  ['d'] = handler_specifier_decimal,
+        ['u'] = handler_specifier_unsigned, ['x'] = handler_specifier_hex,
     };
 
-    return (handlers[type]);
+    return (handlers[char_to_handle]);
 }
 
-static int handle_format_specifier(t_buffer *ctx, va_list ap, char *conversion)
+static int skip_format(t_buffer *ctx)
 {
-    char                specifier;
-    t_handler_specifier handler_specifier;
+    char *p;
 
-    specifier = *(conversion + 1);
-    if (!specifier)
-        return (error(ctx));
-    handler_specifier = get_specifier_handler(specifier);
-    if (!handler_specifier)
-        return (buffer_append(ctx, conversion, 2));
-    if ((*handler_specifier)(ctx, ap, specifier) != 0)
-        return (error(ctx));
+    p = ft_memrchr(ctx->format, '%', ctx->offset);
+    if (!p)
+        return (-1);
+    if (buffer_append(ctx, p, (&ctx->format[ctx->offset] - p + 2)) != 0)
+        return (-1);
+    ctx->offset += 2;
     return (0);
 }
 
-int process_format_string(t_buffer *ctx, char const *format, va_list ap)
+int handle_specifier_or_flag(t_buffer *ctx, va_list ap)
 {
-    char *conversion;
+    char      char_to_handle;
+    t_handler handler;
 
-    while (*format)
+    char_to_handle = ctx->format[ctx->offset + 1];
+    if (!char_to_handle)
+        return (-1);
+    if (char_to_handle == ' ' || char_to_handle == '+')
+        if (has_precision(&ctx->flags) || has_width(&ctx->flags))
+            return (skip_format(ctx));
+    handler = get_handler(char_to_handle);
+    if (!handler)
+        return (skip_format(ctx));
+    ++ctx->offset;
+    return ((*handler)(ctx, ap));
+}
+
+int process_format_string(t_buffer *ctx, va_list ap)
+{
+    while (ctx->format[ctx->offset])
     {
-        conversion = ft_strchr(format, '%');
-        if (!conversion)
-            return (buffer_append(ctx, format, ft_strlen(format)));
-        if (buffer_append(ctx, format, (conversion - format)) != 0)
-            return (error(ctx));
-        if (handle_format_specifier(ctx, ap, conversion) != 0)
-            return (error(ctx));
-        if (!*(conversion + 1))
-            return (0);
-        format = conversion + 2;
+        if (ctx->format[ctx->offset] == '%')
+        {
+            buffer_reset_flags(ctx);
+            if (handle_specifier_or_flag(ctx, ap) != 0)
+                return (-1);
+            continue;
+        }
+        if (buffer_append_one(ctx, ctx->format[ctx->offset]) != 0)
+            return (-1);
+        if (ctx->format[ctx->offset] == '\n')
+            if (buffer_flush(ctx) != 0)
+                return (-1);
+        ++ctx->offset;
     }
     return (0);
 }

@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handler_character.c                                :+:      :+:    :+:   */
+/*   handler_flag_minus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maolivei <maolivei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 20:08:52 by maolivei          #+#    #+#             */
-/*   Updated: 2023/06/15 04:03:03 by maolivei         ###   ########.fr       */
+/*   Created: 2023/06/18 23:18:33 by maolivei          #+#    #+#             */
+/*   Updated: 2023/06/19 17:21:29 by maolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int handler_character(t_buffer *ctx, va_list ap, char specifier)
+int handler_flag_minus(t_buffer *ctx, va_list ap)
 {
-    char arg;
-    char tmp[2];
-
-    arg    = va_arg(ap, int);
-    tmp[0] = arg;
-    tmp[1] = '\0';
-    return (buffer_append(ctx, tmp, 1));
-    (void)specifier;
+    ctx->flags.minus = TRUE;
+    if (ctx->flags.zero)
+        ctx->flags.zero = FALSE;
+    return (handle_specifier_or_flag(ctx, ap));
 }
